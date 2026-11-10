@@ -4,28 +4,28 @@ import uniquindio.edu.co.cinemauq.model.enums.Clasificacion;
 import uniquindio.edu.co.cinemauq.model.enums.EstadoPelicula;
 
 public class Pelicula {
-    private String codigo;
+    private int codigoPelicula;
     private String nombre;
     private String genero;
     private int duracion;
     private Clasificacion clasificacion;
     private EstadoPelicula estado;
 
-    public Pelicula(String codigo, String nombre, String genero, int duracion, Clasificacion clasificacion) {
-        this.codigo = codigo;
+    public Pelicula(int codigoPelicula, String nombre, String genero, int duracion, Clasificacion clasificacion, EstadoPelicula estado) {
+        this.codigoPelicula = codigoPelicula;
         this.nombre = nombre;
         this.genero = genero;
         this.duracion = duracion;
         this.clasificacion = clasificacion;
-        this.estado = EstadoPelicula.DISPONIBLE;
+        this.estado = estado;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public int getCodigoPelicula() {
+        return codigoPelicula;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setCodigoPelicula(int codigoPelicula) {
+        this.codigoPelicula = codigoPelicula;
     }
 
     public String getNombre() {
@@ -67,5 +67,20 @@ public class Pelicula {
     public void setEstado(EstadoPelicula estado) {
         this.estado = estado;
     }
-}
 
+    public void modificar(String nombre, String genero, int duracion, Clasificacion clasificacion, EstadoPelicula estado) {
+        this.nombre = nombre;
+        this.genero = genero;
+        this.duracion = duracion;
+        this.clasificacion = clasificacion;
+        this.estado = estado;
+    }
+
+    public void deshabilitar() {
+        this.estado = EstadoPelicula.NO_DISPONIBLE;
+    }
+
+    public boolean estaDisponible() {
+        return this.estado == EstadoPelicula.DISPONIBLE;
+    }
+}

@@ -2,13 +2,12 @@ package uniquindio.edu.co.cinemauq.model;
 
 public class EntradaGeneral extends Entrada {
 
-    public EntradaGeneral(double valorBase) {
-        super(valorBase);
+    public EntradaGeneral() {
+        super(1, "General", 0.0);
     }
 
     @Override
-    public double calcularPrecio() {
-        // Entrada general cobra la tarifa base completa
-        return getValorBase();
+    public double calcularValor(double valorBase) {
+        return valorBase * (1.0 - (getPorcentajeDescuento() / 100.0));
     }
 }

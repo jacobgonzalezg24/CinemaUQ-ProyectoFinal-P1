@@ -1,13 +1,24 @@
 package uniquindio.edu.co.cinemauq.model;
 
+
 import uniquindio.edu.co.cinemauq.model.enums.Cargo;
 
 public class Empleado extends Persona {
+    private int codigoEmpleado;
     private Cargo cargo;
 
-    public Empleado(String identificacion, String nombre, Cargo cargo) {
+    public Empleado(int codigoEmpleado, String identificacion, String nombre, Cargo cargo) {
         super(identificacion, nombre);
+        this.codigoEmpleado = codigoEmpleado;
         this.cargo = cargo;
+    }
+
+    public int getCodigoEmpleado() {
+        return codigoEmpleado;
+    }
+
+    public void setCodigoEmpleado(int codigoEmpleado) {
+        this.codigoEmpleado = codigoEmpleado;
     }
 
     public Cargo getCargo() {
@@ -18,3 +29,4 @@ public class Empleado extends Persona {
         this.cargo = cargo;
     }
 }
+

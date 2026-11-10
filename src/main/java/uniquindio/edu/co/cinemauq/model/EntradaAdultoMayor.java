@@ -2,13 +2,12 @@ package uniquindio.edu.co.cinemauq.model;
 
 public class EntradaAdultoMayor extends Entrada {
 
-    public EntradaAdultoMayor(double valorBase) {
-        super(valorBase);
+    public EntradaAdultoMayor(double porcentajeDescuento) {
+        super(4, "Adulto Mayor", porcentajeDescuento);
     }
 
     @Override
-    public double calcularPrecio() {
-        // Descuento para adulto mayor del 25%
-        return getValorBase() * 0.75;
+    public double calcularValor(double valorBase) {
+        return valorBase * (1.0 - (getPorcentajeDescuento() / 100.0));
     }
 }

@@ -1,43 +1,33 @@
 package uniquindio.edu.co.cinemauq.model;
 
-import uniquindio.edu.co.cinemauq.model.enums.EstadoAsiento;
 import uniquindio.edu.co.cinemauq.model.enums.EstadoSala;
 import uniquindio.edu.co.cinemauq.model.exceptions.AsientoNoEncontradoException;
 
 public class Sala {
-    private String codigo;
+    private int codigoSala;
     private String nombre;
+    private int filas;
+    private int columnas;
     private int capacidad;
     private EstadoSala estado;
-    // La distribucion fisica de la sala se gestiona mediante una matriz bidimensional [filas][columnas]
-    private Asiento[][] asientos;
+    private Asiento[][] matrizAsientos;
 
-    public Sala(String codigo, String nombre, int filas, int columnas) {
-        this.codigo = codigo;
+    public Sala(int codigoSala, String nombre, int filas, int columnas, EstadoSala estado) {
+        this.codigoSala = codigoSala;
         this.nombre = nombre;
+        this.filas = filas;
+        this.columnas = columnas;
         this.capacidad = filas * columnas;
-        this.estado = EstadoSala.DISPONIBLE;
-        this.asientos = new Asiento[filas][columnas];
-        inicializarAsientos(filas, columnas);
+        this.estado = estado;
+        generarAsientos();
     }
 
-    // Crea y posiciona los asientos en la matriz ordenados por filas (A, B, C...) y numero (1, 2, 3...)
-    private void inicializarAsientos(int filas, int columnas) {
-        for (int i = 0; i < filas; i++) {
-            char letraFila = (char) ('A' + i);
-            for (int j = 0; j < columnas; j++) {
-                String codigoAsiento = letraFila + String.valueOf(j + 1);
-                asientos[i][j] = new Asiento(codigoAsiento, i + 1, j + 1);
-            }
-        }
+    public int getCodigoSala() {
+        return codigoSala;
     }
 
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setCodigoSala(int codigoSala) {
+        this.codigoSala = codigoSala;
     }
 
     public String getNombre() {
@@ -48,12 +38,16 @@ public class Sala {
         this.nombre = nombre;
     }
 
-    public int getCapacidad() {
-        return capacidad;
+    public int getFilas() {
+        return filas;
     }
 
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
+    public int getColumnas() {
+        return columnas;
+    }
+
+    public int getCapacidad() {
+        return capacidad;
     }
 
     public EstadoSala getEstado() {
@@ -64,46 +58,28 @@ public class Sala {
         this.estado = estado;
     }
 
-    public Asiento[][] getAsientos() {
-        return asientos;
+    public Asiento[][] getMatrizAsientos() {
+        return matrizAsientos;
     }
 
-    // Busca un asiento recorriendo la matriz bidimensional mediante sus indices [i][j]
+    private void generarAsientos() {
+        this.matrizAsientos = new Asiento[filas][columnas];
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                this.matrizAsientos[i][j] = new Asiento(i + 1, j + 1);
+            }
+        }
+    }
+
     public Asiento buscarAsiento(String codigoAsiento) throws AsientoNoEncontradoException {
-        for (int i = 0; i < asientos.length; i++) {
-            for (int j = 0; j < asientos[i].length; j++) {
-                if (asientos[i][j].getCodigo().equalsIgnoreCase(codigoAsiento)) {
-                    return asientos[i][j];
-                }
-            }
-        }
-        throw new AsientoNoEncontradoException("El asiento " + codigoAsiento + " no existe en la sala.");
+        return Asiento.buscarEnMatriz(this.matrizAsientos, codigoAsiento);
     }
 
-    // Recorre la matriz para contar cuantos asientos estan disponibles
-    public int contarAsientosDisponibles() {
-        int contador = 0;
-        for (int i = 0; i < asientos.length; i++) {
-            for (int j = 0; j < asientos[i].length; j++) {
-                if (asientos[i][j].getEstado() == EstadoAsiento.DISPONIBLE) {
-                    contador++;
-                }
-            }
-        }
-        return contador;
+    public void deshabilitar() {
+        this.estado = EstadoSala.FUERA_DE_SERVICIO;
     }
 
-    // Recorre la matriz para contar cuantos asientos se encuentran ocupados
-    public int contarAsientosOcupados() {
-        int contador = 0;
-        for (int i = 0; i < asientos.length; i++) {
-            for (int j = 0; j < asientos[i].length; j++) {
-                if (asientos[i][j].getEstado() == EstadoAsiento.OCUPADO) {
-                    contador++;
-                }
-            }
-        }
-        return contador;
+    public boolean estaDisponible() {
+        return this.estado == EstadoSala.DISPONIBLE;
     }
 }
-

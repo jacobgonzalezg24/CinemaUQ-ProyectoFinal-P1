@@ -1,20 +1,32 @@
 package uniquindio.edu.co.cinemauq.model;
 
 public abstract class Entrada {
-    private double valorBase;
+    private int codigoEntrada;
+    private String nombre;
+    private double porcentajeDescuento;
 
-    public Entrada(double valorBase) {
-        this.valorBase = valorBase;
+    public Entrada(int codigoEntrada, String nombre, double porcentajeDescuento) {
+        this.codigoEntrada = codigoEntrada;
+        this.nombre = nombre;
+        this.porcentajeDescuento = porcentajeDescuento;
     }
 
-    public double getValorBase() {
-        return valorBase;
+    public int getCodigoEntrada() {
+        return codigoEntrada;
     }
 
-    public void setValorBase(double valorBase) {
-        this.valorBase = valorBase;
+    public String getNombre() {
+        return nombre;
     }
 
-    // Metodo polimorfico para calcular el precio final segun el tipo de entrada
-    public abstract double calcularPrecio();
+    public double getPorcentajeDescuento() {
+        return porcentajeDescuento;
+    }
+
+    public void setPorcentajeDescuento(double porcentajeDescuento) {
+        this.porcentajeDescuento = porcentajeDescuento;
+    }
+
+    public abstract double calcularValor(double valorBase);
 }
+

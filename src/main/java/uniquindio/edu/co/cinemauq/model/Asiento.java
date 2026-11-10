@@ -1,42 +1,32 @@
 package uniquindio.edu.co.cinemauq.model;
 
 import uniquindio.edu.co.cinemauq.model.enums.EstadoAsiento;
+import uniquindio.edu.co.cinemauq.model.exceptions.AsientoNoEncontradoException;
+import uniquindio.edu.co.cinemauq.model.exceptions.AsientoOcupadoException;
 
 public class Asiento {
-    private String codigo;
+    private String codigoAsiento;
     private int fila;
-    private int numero;
+    private int columna;
     private EstadoAsiento estado;
 
-    public Asiento(String codigo, int fila, int numero) {
-        this.codigo = codigo;
+    public Asiento(int fila, int columna) {
         this.fila = fila;
-        this.numero = numero;
+        this.columna = columna;
+        this.codigoAsiento = generarCodigo(fila, columna);
         this.estado = EstadoAsiento.DISPONIBLE;
     }
 
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public String getCodigoAsiento() {
+        return codigoAsiento;
     }
 
     public int getFila() {
         return fila;
     }
 
-    public void setFila(int fila) {
-        this.fila = fila;
-    }
-
-    public int getNumero() {
-        return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public int getColumna() {
+        return columna;
     }
 
     public EstadoAsiento getEstado() {
@@ -47,15 +37,36 @@ public class Asiento {
         this.estado = estado;
     }
 
-    public boolean estaDisponible() {
-        return this.estado == EstadoAsiento.DISPONIBLE;
+    private String generarCodigo(int fila, int columna) {
+        char letraFila = (char) ('A' + (fila - 1));
+        return letraFila + String.valueOf(columna);
     }
 
-    public void ocupar() {
+    public void ocupar() throws AsientoOcupadoException {
+        if (!estaDisponible()) {
+            throw new AsientoOcupadoException("El asiento " + codigoAsiento + " ya se encuentra ocupado.");
+        }
         this.estado = EstadoAsiento.OCUPADO;
     }
 
     public void liberar() {
         this.estado = EstadoAsiento.DISPONIBLE;
+    }
+
+    public boolean estaDisponible() {
+        return this.estado == EstadoAsiento.DISPONIBLE;
+    }
+
+    public static Asiento buscarEnMatriz(Asiento[][] matriz, String codigoAsiento) throws AsientoNoEncontradoException {
+        if (matriz != null) {
+            for (int i = 0; i < matriz.length; i++) {
+                for (int j = 0; j < matriz[i].length; j++) {
+                    if (matriz[i][j] != null && matriz[i][j].getCodigoAsiento().equalsIgnoreCase(codigoAsiento)) {
+                        return matriz[i][j];
+                    }
+                }
+            }
+        }
+        throw new AsientoNoEncontradoException("El asiento con codigo " + codigoAsiento + " no existe.");
     }
 }

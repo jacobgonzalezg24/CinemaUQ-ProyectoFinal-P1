@@ -2,13 +2,12 @@ package uniquindio.edu.co.cinemauq.model;
 
 public class EntradaNino extends Entrada {
 
-    public EntradaNino(double valorBase) {
-        super(valorBase);
+    public EntradaNino(double porcentajeDescuento) {
+        super(3, "Nino", porcentajeDescuento);
     }
 
     @Override
-    public double calcularPrecio() {
-        // Descuento para ninos del 30%
-        return getValorBase() * 0.70;
+    public double calcularValor(double valorBase) {
+        return valorBase * (1.0 - (getPorcentajeDescuento() / 100.0));
     }
 }

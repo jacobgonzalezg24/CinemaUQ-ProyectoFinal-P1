@@ -1,11 +1,13 @@
 package uniquindio.edu.co.cinemauq.model;
 
 import uniquindio.edu.co.cinemauq.model.enums.EstadoVenta;
+
 import java.time.LocalDateTime;
 
 public class Venta {
-    private String codigo;
+    private int codigoVenta;
     private Cliente cliente;
+    private Empleado empleado;
     private Funcion funcion;
     private Asiento asiento;
     private Entrada entrada;
@@ -13,73 +15,48 @@ public class Venta {
     private double valorPagado;
     private EstadoVenta estado;
 
-    public Venta(String codigo, Cliente cliente, Funcion funcion, Asiento asiento, Entrada entrada) {
-        this.codigo = codigo;
+    public Venta(int codigoVenta, Cliente cliente, Empleado empleado, Funcion funcion, Asiento asiento, Entrada entrada) {
+        this.codigoVenta = codigoVenta;
         this.cliente = cliente;
+        this.empleado = empleado;
         this.funcion = funcion;
         this.asiento = asiento;
         this.entrada = entrada;
         this.fechaHora = LocalDateTime.now();
-        this.valorPagado = entrada.calcularPrecio();
+        this.valorPagado = calcularValorPagado();
         this.estado = EstadoVenta.ACTIVA;
-        // Al registrar la venta, el asiento cambia su estado a ocupado en la matriz de la sala
-        asiento.ocupar();
     }
 
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public int getCodigoVenta() {
+        return codigoVenta;
     }
 
     public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public Empleado getEmpleado() {
+        return empleado;
     }
 
     public Funcion getFuncion() {
         return funcion;
     }
 
-    public void setFuncion(Funcion funcion) {
-        this.funcion = funcion;
-    }
-
     public Asiento getAsiento() {
         return asiento;
-    }
-
-    public void setAsiento(Asiento asiento) {
-        this.asiento = asiento;
     }
 
     public Entrada getEntrada() {
         return entrada;
     }
 
-    public void setEntrada(Entrada entrada) {
-        this.entrada = entrada;
-    }
-
     public LocalDateTime getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(LocalDateTime fechaHora) {
-        this.fechaHora = fechaHora;
-    }
-
     public double getValorPagado() {
         return valorPagado;
-    }
-
-    public void setValorPagado(double valorPagado) {
-        this.valorPagado = valorPagado;
     }
 
     public EstadoVenta getEstado() {
@@ -90,9 +67,28 @@ public class Venta {
         this.estado = estado;
     }
 
-    // Al cancelar la venta, se libera la reserva del asiento correspondiente
-    public void cancelarVenta() {
+    private double calcularValorPagado() {
+        return entrada.calcularValor(funcion.getValorBase());
+    }
+
+    public boolean estaActiva() {
+        return this.estado == EstadoVenta.ACTIVA;
+    }
+
+    public void cancelar() {
         this.estado = EstadoVenta.CANCELADA;
         this.asiento.liberar();
+    }
+
+    public String generarInformacionEntrada() {
+        return "TICKET CINEMAUQ \n" +
+                "Venta #: " + codigoVenta + "\n" +
+                "Pelicula: " + funcion.getPelicula().getNombre() + "\n" +
+                "Sala: " + funcion.getSala().getNombre() + "\n" +
+                "Fecha/Hora Funcion: " + funcion.getFecha() + " " + funcion.getHora() + "\n" +
+                "Asiento: " + asiento.getCodigoAsiento() + "\n" +
+                "Cliente: " + cliente.getNombre() + "\n" +
+                "Tipo Entrada: " + entrada.getNombre() + "\n" +
+                "Valor Pagado: $" + valorPagado;
     }
 }
