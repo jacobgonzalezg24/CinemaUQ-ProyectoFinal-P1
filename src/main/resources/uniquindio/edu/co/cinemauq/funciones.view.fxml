@@ -41,9 +41,13 @@
             <TextField fx:id="txtValorBase" promptText="Ej: 15000" style="-fx-background-color: rgba(255,255,255,0.05); -fx-text-fill: white; -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.1); -fx-padding: 8;" />
         </VBox>
 
-        <VBox spacing="8" style="-fx-padding: 10 0 0 0;">
-            <Button maxWidth="Infinity" onAction="#handleProgramarFuncion" style="-fx-background-color: #7c3aed; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 10; -fx-background-radius: 8;" text="Programar Función" />
-            <Button maxWidth="Infinity" onAction="#handleLimpiar" style="-fx-background-color: rgba(255, 255, 255, 0.05); -fx-text-fill: white; -fx-cursor: hand; -fx-padding: 8; -fx-background-radius: 8;" text="Limpiar Campos" />
+        <!-- En el VBox de botones del formulario de funciones -->
+        <VBox spacing="10.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#handleProgramarFuncion" prefHeight="40.0" prefWidth="Infinity" styleClass="action-button" text="Programar Función" />
+                <Button mnemonicParsing="false" onAction="#handleLimpiar" prefHeight="40.0" prefWidth="Infinity" styleClass="secondary-button" text="Limpiar Campos" />
+                <Button mnemonicParsing="false" onAction="#handleCancelarFuncion" prefHeight="40.0" prefWidth="Infinity" styleClass="danger-button" style="-fx-background-color: #ef4444; -fx-text-fill: white;" text="Cancelar Función" />
+            </children>
         </VBox>
     </VBox>
 

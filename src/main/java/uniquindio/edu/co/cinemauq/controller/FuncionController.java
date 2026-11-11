@@ -2,9 +2,9 @@ package uniquindio.edu.co.cinemauq.controller;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
 import uniquindio.edu.co.cinemauq.model.*;
 import uniquindio.edu.co.cinemauq.model.exceptions.CinemaException;
@@ -91,7 +91,6 @@ public class FuncionController {
         colCodigo.setCellValueFactory(cellData -> {
             Funcion f = cellData.getValue();
             if (f == null) return new SimpleStringProperty("");
-            // Intenta obtener el código independientemente del nombre del atributo (getCodigoFuncion o getCodigo)
             return new SimpleStringProperty(String.valueOf(f.getCodigoFuncion()));
         });
 
@@ -191,9 +190,39 @@ public class FuncionController {
         }
     }
 
+    // Alias para evitar errores con FXML que apunten a 'handleLimpiar'
     @FXML
-    private void handleLimpiar() {
+    private void handleLimpiar(ActionEvent event) {
         limpiarCampos();
+    }
+
+    @FXML
+    private void handleLimpiarCampos(ActionEvent event) {
+        limpiarCampos();
+    }
+
+    @FXML
+    private void handleCancelarFuncion(ActionEvent event) {
+        Funcion funcionSeleccionada = tblFunciones != null ? tblFunciones.getSelectionModel().getSelectedItem() : null;
+
+        // Si hay una función seleccionada en la tabla, la cancela/elimina del sistema
+        if (funcionSeleccionada != null) {
+            try {
+                if (cinema != null) {
+                    cinema.cancelarFuncion(funcionSeleccionada.getCodigoFuncion());
+                }
+                mostrarAlerta("Función Cancelada", "La función ha sido cancelada exitosamente.", Alert.AlertType.INFORMATION);
+                actualizarTabla();
+                limpiarCampos();
+            } catch (CinemaException e) {
+                mostrarAlerta("Error al Cancelar", e.getMessage(), Alert.AlertType.ERROR);
+            } catch (Exception e) {
+                mostrarAlerta("Error Inesperado", "No se pudo cancelar la función: " + e.getMessage(), Alert.AlertType.ERROR);
+            }
+        } else {
+            // Si no se seleccionó ninguna fila de la tabla, simplemente limpia el formulario
+            limpiarCampos();
+        }
     }
 
     private void limpiarCampos() {
@@ -203,6 +232,7 @@ public class FuncionController {
         txtValorBase.clear();
         if (spHora.getValueFactory() != null) spHora.getValueFactory().setValue(18);
         if (spMinuto.getValueFactory() != null) spMinuto.getValueFactory().setValue(0);
+        if (tblFunciones != null) tblFunciones.getSelectionModel().clearSelection();
     }
 
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {

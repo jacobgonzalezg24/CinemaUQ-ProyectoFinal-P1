@@ -28,5 +28,10 @@ public class Empleado extends Persona {
     public void setCargo(Cargo cargo) {
         this.cargo = cargo;
     }
+
+    @Override
+    public String toString() {
+        return super.getNombre();
+    }
 }
 
