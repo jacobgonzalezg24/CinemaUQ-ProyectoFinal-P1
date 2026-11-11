@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox spacing="20.0" styleClass="view-container" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uniquindio.edu.co.cinemauq.controller.SalaController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <!-- Panel Izquierdo: Tabla Principal -->
+    <VBox spacing="15.0" HBox.hgrow="ALWAYS">
+        <Label styleClass="page-title" text="Gestión de Salas" />
+
+        <TableView fx:id="tblSalas" styleClass="dark-table" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colCodigoSala" prefWidth="120.0" text="Código" />
+                <TableColumn fx:id="colNombre" prefWidth="250.0" text="Nombre" />
+                <TableColumn fx:id="colCapacidad" prefWidth="130.0" text="Capacidad" />
+                <TableColumn fx:id="colEstado" prefWidth="150.0" text="Estado" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </VBox>
+
+    <!-- Panel Derecho: Formulario / Detalles de Sala -->
+    <VBox prefWidth="320.0" spacing="15.0" styleClass="card-panel">
+        <Label styleClass="card-title" text="Detalles de Sala" />
+
+        <VBox spacing="5.0">
+            <Label styleClass="input-label" text="Código" />
+            <TextField fx:id="txtCodigoSala" promptText="Ej: SALA-01" styleClass="dark-input" />
+        </VBox>
+
+        <VBox spacing="5.0">
+            <Label styleClass="input-label" text="Nombre" />
+            <TextField fx:id="txtNombre" promptText="Nombre de la sala" styleClass="dark-input" />
+        </VBox>
+
+        <HBox spacing="10.0">
+            <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                <Label styleClass="input-label" text="Filas" />
+                <Spinner fx:id="spnFilas" editable="true" prefWidth="140.0" styleClass="dark-spinner" />
+            </VBox>
+            <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                <Label styleClass="input-label" text="Columnas" />
+                <Spinner fx:id="spnColumnas" editable="true" prefWidth="140.0" styleClass="dark-spinner" />
+            </VBox>
+        </HBox>
+
+        <VBox spacing="5.0">
+            <Label styleClass="input-label" text="Estado" />
+            <ComboBox fx:id="cbEstado" maxWidth="1.7976931348623157E308" promptText="Seleccionar..." styleClass="dark-combo" />
+        </VBox>
+
+        <VBox spacing="10.0" style="-fx-padding: 10 0 0 0;">
+            <Button maxWidth="1.7976931348623157E308" onAction="#handleGuardar" styleClass="btn-purple" text="Registrar / Guardar" />
+
+            <HBox spacing="10.0">
+                <Button HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308" onAction="#handleEliminar" styleClass="btn-dark-danger" text="Eliminar" />
+                <Button HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308" onAction="#handleLimpiar" styleClass="btn-dark-secondary" text="Limpiar" />
+            </HBox>
+        </VBox>
+    </VBox>
+</HBox>

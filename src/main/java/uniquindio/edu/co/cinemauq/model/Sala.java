@@ -1,32 +1,47 @@
 package uniquindio.edu.co.cinemauq.model;
 
 import uniquindio.edu.co.cinemauq.model.enums.EstadoSala;
-import uniquindio.edu.co.cinemauq.model.exceptions.AsientoNoEncontradoException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Sala {
-    private int codigoSala;
+    private String codigoSala;
     private String nombre;
-    private int filas;
-    private int columnas;
-    private int capacidad;
+    private int numeroFilas;
+    private int numeroColumnas;
     private EstadoSala estado;
-    private Asiento[][] matrizAsientos;
+    private List<Asiento> asientos;
 
-    public Sala(int codigoSala, String nombre, int filas, int columnas, EstadoSala estado) {
+    public Sala(String codigoSala, String nombre, int numeroFilas, int numeroColumnas, EstadoSala estado) {
         this.codigoSala = codigoSala;
         this.nombre = nombre;
-        this.filas = filas;
-        this.columnas = columnas;
-        this.capacidad = filas * columnas;
+        this.numeroFilas = numeroFilas;
+        this.numeroColumnas = numeroColumnas;
         this.estado = estado;
-        generarAsientos();
+        this.asientos = new ArrayList<>();
+        generarMatrizAsientos();
     }
 
-    public int getCodigoSala() {
+    public void generarMatrizAsientos() {
+        this.asientos.clear();
+        for (int i = 0; i < numeroFilas; i++) {
+            char fila = (char) ('A' + i);
+            for (int j = 1; j <= numeroColumnas; j++) {
+                this.asientos.add(new Asiento(fila, j));
+            }
+        }
+    }
+
+    public int getCapacidadTotal() {
+        return numeroFilas * numeroColumnas;
+    }
+
+    // Getters y Setters
+    public String getCodigoSala() {
         return codigoSala;
     }
 
-    public void setCodigoSala(int codigoSala) {
+    public void setCodigoSala(String codigoSala) {
         this.codigoSala = codigoSala;
     }
 
@@ -38,16 +53,22 @@ public class Sala {
         this.nombre = nombre;
     }
 
-    public int getFilas() {
-        return filas;
+    public int getNumeroFilas() {
+        return numeroFilas;
     }
 
-    public int getColumnas() {
-        return columnas;
+    public void setNumeroFilas(int numeroFilas) {
+        this.numeroFilas = numeroFilas;
+        generarMatrizAsientos();
     }
 
-    public int getCapacidad() {
-        return capacidad;
+    public int getNumeroColumnas() {
+        return numeroColumnas;
+    }
+
+    public void setNumeroColumnas(int numeroColumnas) {
+        this.numeroColumnas = numeroColumnas;
+        generarMatrizAsientos();
     }
 
     public EstadoSala getEstado() {
@@ -58,28 +79,11 @@ public class Sala {
         this.estado = estado;
     }
 
-    public Asiento[][] getMatrizAsientos() {
-        return matrizAsientos;
+    public List<Asiento> getAsientos() {
+        return asientos;
     }
 
-    private void generarAsientos() {
-        this.matrizAsientos = new Asiento[filas][columnas];
-        for (int i = 0; i < filas; i++) {
-            for (int j = 0; j < columnas; j++) {
-                this.matrizAsientos[i][j] = new Asiento(i + 1, j + 1);
-            }
-        }
-    }
-
-    public Asiento buscarAsiento(String codigoAsiento) throws AsientoNoEncontradoException {
-        return Asiento.buscarEnMatriz(this.matrizAsientos, codigoAsiento);
-    }
-
-    public void deshabilitar() {
-        this.estado = EstadoSala.FUERA_DE_SERVICIO;
-    }
-
-    public boolean estaDisponible() {
-        return this.estado == EstadoSala.DISPONIBLE;
+    public void setAsientos(List<Asiento> asientos) {
+        this.asientos = asientos;
     }
 }

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox spacing="25" style="-fx-background-color: transparent; -fx-padding: 30;" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uniquindio.edu.co.cinemauq.controller.TaquillaController">
+
+    <!-- LADO IZQUIERDO: SELECCIÓN DE FUNCIÓN Y MAPA DE ASIENTOS -->
+    <VBox HBox.hgrow="ALWAYS" spacing="20" style="-fx-background-color: rgba(255, 255, 255, 0.02); -fx-background-radius: 16; -fx-padding: 24; -fx-border-color: rgba(255, 255, 255, 0.06); -fx-border-radius: 16;">
+
+        <!-- Header y Seleccionador de Función -->
+        <HBox spacing="15" alignment="CENTER_LEFT">
+            <VBox HBox.hgrow="ALWAYS">
+                <Label text="Venta de Entradas" style="-fx-font-size: 22px; -fx-text-fill: white; -fx-font-weight: bold;" />
+                <Label text="Seleccione la función y marque los asientos deseados" style="-fx-text-fill: #94a3b8; -fx-font-size: 12px;" />
+            </VBox>
+
+            <VBox spacing="4" prefWidth="280">
+                <Label text="Función / Película / Sala" style="-fx-text-fill: #94a3b8; -fx-font-size: 11px; -fx-font-weight: bold;" />
+                <ComboBox fx:id="cmbFuncion" promptText="Seleccionar función..." maxWidth="Infinity" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 8;" />
+            </VBox>
+        </HBox>
+
+        <Separator style="-fx-opacity: 0.1;" />
+
+        <!-- Representación visual de la Pantalla del Cine -->
+        <VBox alignment="CENTER" spacing="8">
+            <Region prefHeight="8" prefWidth="400" maxWidth="500" style="-fx-background-color: linear-gradient(to right, #7c3aed, #3b82f6); -fx-background-radius: 4; -fx-effect: dropshadow(three-pass-box, rgba(124, 58, 237, 0.6), 10, 0, 0, 4);" />
+            <Label text="P A N T A L L A" style="-fx-text-fill: #64748b; -fx-font-size: 10px; -fx-font-weight: bold; -fx-letter-spacing: 4;" />
+        </VBox>
+
+        <!-- MAPA DINÁMICO DE ASIENTOS (GridPane) -->
+        <ScrollPane fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent; -fx-background: transparent; -fx-padding: 0;">
+            <StackPane style="-fx-background-color: transparent;">
+                <GridPane fx:id="gridAsientos" alignment="CENTER" hgap="8" vgap="8" style="-fx-padding: 20 10;">
+                    <!-- Se genera dinámicamente -->
+                </GridPane>
+            </StackPane>
+        </ScrollPane>
+
+        <!-- Leyenda de Convenciones -->
+        <HBox alignment="CENTER" spacing="25" style="-fx-background-color: rgba(0,0,0,0.2); -fx-padding: 10; -fx-background-radius: 10;">
+            <HBox alignment="CENTER" spacing="8">
+                <Region prefWidth="18" prefHeight="18" style="-fx-background-color: #1e293b; -fx-border-color: #475569; -fx-background-radius: 4; -fx-border-radius: 4;" />
+                <Label text="Disponible" style="-fx-text-fill: white; -fx-font-size: 12px;" />
+            </HBox>
+            <HBox alignment="CENTER" spacing="8">
+                <Region prefWidth="18" prefHeight="18" style="-fx-background-color: #7c3aed; -fx-background-radius: 4;" />
+                <Label text="Seleccionado" style="-fx-text-fill: white; -fx-font-size: 12px;" />
+            </HBox>
+            <HBox alignment="CENTER" spacing="8">
+                <Region prefWidth="18" prefHeight="18" style="-fx-background-color: #ef4444; -fx-background-radius: 4;" />
+                <Label text="Ocupado" style="-fx-text-fill: white; -fx-font-size: 12px;" />
+            </HBox>
+        </HBox>
+    </VBox>
+
+    <!-- LADO DERECHO: RESUMEN, EMPLEADO Y DATOS DEL CLIENTE -->
+    <VBox spacing="12" prefWidth="340" style="-fx-background-color: rgba(255, 255, 255, 0.03); -fx-background-radius: 16; -fx-padding: 24; -fx-border-color: rgba(255, 255, 255, 0.08); -fx-border-radius: 16;">
+        <Label text="Resumen de Venta" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
+
+        <!-- SECCIÓN CLIENTE -->
+        <VBox spacing="4">
+            <Label text="Cédula / ID Cliente" style="-fx-text-fill: #94a3b8; -fx-font-size: 11px; -fx-font-weight: bold;" />
+            <HBox spacing="8">
+                <TextField fx:id="txtCedulaCliente" promptText="Número de documento" HBox.hgrow="ALWAYS" style="-fx-background-color: rgba(255,255,255,0.05); -fx-text-fill: white; -fx-prompt-text-fill: #64748b; -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 8; -fx-padding: 8;" />
+                <Button onAction="#handleBuscarCliente" text="🔍" style="-fx-background-color: rgba(139, 92, 246, 0.3); -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 8 12; -fx-background-radius: 8;" />
+            </HBox>
+        </VBox>
+
+        <VBox spacing="4">
+            <Label text="Nombre Completo Cliente" style="-fx-text-fill: #94a3b8; -fx-font-size: 11px; -fx-font-weight: bold;" />
+            <TextField fx:id="txtNombreCliente" promptText="Nombre del cliente" style="-fx-background-color: rgba(255,255,255,0.05); -fx-text-fill: white; -fx-prompt-text-fill: #64748b; -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 8; -fx-padding: 8;" />
+        </VBox>
+
+        <Separator style="-fx-opacity: 0.1;" />
+
+        <!-- SECCIÓN EMPLEADO -->
+        <VBox spacing="4">
+            <Label text="Código Empleado" style="-fx-text-fill: #94a3b8; -fx-font-size: 11px; -fx-font-weight: bold;" />
+            <HBox spacing="8">
+                <TextField fx:id="txtCodigoEmpleado" promptText="Ej: 111" HBox.hgrow="ALWAYS" style="-fx-background-color: rgba(255,255,255,0.05); -fx-text-fill: white; -fx-prompt-text-fill: #64748b; -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 8; -fx-padding: 8;" />
+                <Button onAction="#handleBuscarEmpleado" text="🔍" style="-fx-background-color: rgba(139, 92, 246, 0.3); -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 8 12; -fx-background-radius: 8;" />
+            </HBox>
+        </VBox>
+
+        <VBox spacing="4">
+            <Label text="Nombre Empleado (Vendedor)" style="-fx-text-fill: #94a3b8; -fx-font-size: 11px; -fx-font-weight: bold;" />
+            <TextField fx:id="txtNombreEmpleado" promptText="Nombre del empleado" style="-fx-background-color: rgba(255,255,255,0.05); -fx-text-fill: white; -fx-prompt-text-fill: #64748b; -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 8; -fx-padding: 8;" />
+        </VBox>
+
+        <Separator style="-fx-opacity: 0.1;" />
+
+        <VBox spacing="4">
+            <Label text="Tipo de Entrada" style="-fx-text-fill: #94a3b8; -fx-font-size: 11px; -fx-font-weight: bold;" />
+            <ComboBox fx:id="cmbTipoEntrada" promptText="Seleccionar tipo..." maxWidth="Infinity" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 8;" />
+        </VBox>
+
+        <VBox spacing="6" style="-fx-background-color: rgba(0,0,0,0.2); -fx-padding: 10; -fx-background-radius: 8;">
+            <Label text="Asientos Seleccionados:" style="-fx-text-fill: #94a3b8; -fx-font-size: 11px;" />
+            <Label fx:id="lblAsientosSeleccionados" text="Ninguno" style="-fx-text-fill: #a78bfa; -fx-font-size: 13px; -fx-font-weight: bold;" wrapText="true" />
+        </VBox>
+
+        <VBox spacing="6" style="-fx-background-color: rgba(0,0,0,0.2); -fx-padding: 10; -fx-background-radius: 8;">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="Total a Pagar:" style="-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;" HBox.hgrow="ALWAYS" />
+                <Label fx:id="lblTotalPagar" text="0" style="-fx-text-fill: #10b981; -fx-font-size: 18px; -fx-font-weight: bold;" />
+            </HBox>
+        </VBox>
+
+        <VBox spacing="8" style="-fx-padding: 5 0 0 0;">
+            <Button text="Confirmar y Vender" onAction="#handleConfirmarVenta" maxWidth="Infinity" style="-fx-background-color: #7c3aed; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 10; -fx-background-radius: 8;" />
+            <Button text="Cancelar Selección" onAction="#handleCancelarSeleccion" maxWidth="Infinity" style="-fx-background-color: rgba(255, 255, 255, 0.05); -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 8; -fx-background-radius: 8;" />
+        </VBox>
+    </VBox>
+</HBox>

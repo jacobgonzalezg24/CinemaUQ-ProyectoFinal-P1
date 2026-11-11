@@ -28,5 +28,12 @@ public abstract class Entrada {
     }
 
     public abstract double calcularValor(double valorBase);
-}
 
+    @Override
+    public String toString() {
+        if (porcentajeDescuento > 0) {
+            return nombre + " (-" + String.format("%.0f", porcentajeDescuento) + "%)";
+        }
+        return nombre;
+    }
+}

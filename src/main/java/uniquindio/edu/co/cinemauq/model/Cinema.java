@@ -1,5 +1,6 @@
 package uniquindio.edu.co.cinemauq.model;
 
+import uniquindio.edu.co.cinemauq.model.enums.Cargo;
 import uniquindio.edu.co.cinemauq.model.enums.Clasificacion;
 import uniquindio.edu.co.cinemauq.model.enums.EstadoPelicula;
 import uniquindio.edu.co.cinemauq.model.enums.EstadoSala;
@@ -30,7 +31,20 @@ public class Cinema {
         this.listaClientes = new ArrayList<>();
         this.listaEmpleados = new ArrayList<>();
         this.listaTiposEntrada = new ArrayList<>();
+
         cargarTiposEntrada();
+        cargarPeliculasBase();
+
+        // Administrador por defecto
+        this.listaEmpleados.add(new Empleado(111, "12345678", "Jacob Gonzalez", Cargo.ADMINISTRADOR));
+    }
+
+    private void cargarPeliculasBase() {
+        listaPeliculas.add(new Pelicula(101, "El Sorprendente Hombre Araña", "Acción / Aventura", 136, Clasificacion.MAYORES_12, EstadoPelicula.DISPONIBLE, "spiderman.jpg"));
+        listaPeliculas.add(new Pelicula(102, "Avatar: El Camino del Agua", "Fantasía / IMAX", 192, Clasificacion.MAYORES_12, EstadoPelicula.DISPONIBLE, "avatar.jpeg"));
+        listaPeliculas.add(new Pelicula(103, "Enredados", "Animación / Fantasía", 93, Clasificacion.TODOS, EstadoPelicula.DISPONIBLE, "enredados.png"));
+        listaPeliculas.add(new Pelicula(104, "Intensa-Mente 2", "Animación", 96, Clasificacion.MAYORES_7, EstadoPelicula.DISPONIBLE, "intensamente.png"));
+        listaPeliculas.add(new Pelicula(105, "Deadpool & Wolverine", "Acción / Comedia", 128, Clasificacion.MAYORES_15, EstadoPelicula.DISPONIBLE, "deadpoolywolverine.jpeg"));
     }
 
     public List<Pelicula> getListaPeliculas() {
@@ -98,14 +112,19 @@ public class Cinema {
         throw new PeliculaNoEncontradaException("Pelicula no encontrada.");
     }
 
-    public void modificarPelicula(int codigoPelicula, String nombre, String genero, int duracion, Clasificacion clasificacion, EstadoPelicula estado) throws PeliculaNoEncontradaException {
+    public void modificarPelicula(int codigoPelicula, String nombre, String genero, int duracion, Clasificacion clasificacion, EstadoPelicula estado, String imagen) throws PeliculaNoEncontradaException {
         Pelicula p = buscarPelicula(codigoPelicula);
-        p.modificar(nombre, genero, duracion, clasificacion, estado);
+        p.modificar(nombre, genero, duracion, clasificacion, estado, imagen);
     }
 
     public void deshabilitarPelicula(int codigoPelicula) throws PeliculaNoEncontradaException {
         Pelicula p = buscarPelicula(codigoPelicula);
         p.deshabilitar();
+    }
+
+    public void eliminarPelicula(int codigoPelicula) throws PeliculaNoEncontradaException {
+        Pelicula p = buscarPelicula(codigoPelicula);
+        listaPeliculas.remove(p);
     }
 
     public List<Pelicula> consultarPeliculas() {
@@ -121,9 +140,9 @@ public class Cinema {
     }
 
     // --- SALAS ---
-    public boolean verificarSala(int codigoSala) {
+    public boolean verificarSala(String codigoSala) {
         for (Sala s : listaSalas) {
-            if (s.getCodigoSala() == codigoSala) return true;
+            if (s.getCodigoSala() != null && s.getCodigoSala().equalsIgnoreCase(codigoSala)) return true;
         }
         return false;
     }
@@ -135,22 +154,27 @@ public class Cinema {
         listaSalas.add(sala);
     }
 
-    public Sala buscarSala(int codigoSala) throws SalaNoEncontradaException {
+    public Sala buscarSala(String codigoSala) throws SalaNoEncontradaException {
         for (Sala s : listaSalas) {
-            if (s.getCodigoSala() == codigoSala) return s;
+            if (s.getCodigoSala() != null && s.getCodigoSala().equalsIgnoreCase(codigoSala)) return s;
         }
         throw new SalaNoEncontradaException("Sala no encontrada.");
     }
 
-    public void modificarSala(int codigoSala, String nombre, EstadoSala estado) throws SalaNoEncontradaException {
+    public void modificarSala(String codigoSala, String nombre, EstadoSala estado) throws SalaNoEncontradaException {
         Sala s = buscarSala(codigoSala);
         s.setNombre(nombre);
         s.setEstado(estado);
     }
 
-    public void deshabilitarSala(int codigoSala) throws SalaNoEncontradaException {
+    public void deshabilitarSala(String codigoSala) throws SalaNoEncontradaException {
         Sala s = buscarSala(codigoSala);
-        s.deshabilitar();
+        s.setEstado(EstadoSala.FUERA_DE_SERVICIO);
+    }
+
+    public void eliminarSala(String codigoSala) throws SalaNoEncontradaException {
+        Sala s = buscarSala(codigoSala);
+        listaSalas.remove(s);
     }
 
     public List<Sala> consultarSalas() {
@@ -234,12 +258,40 @@ public class Cinema {
         return false;
     }
 
-    public Funcion programarFuncion(int codigoPelicula, int codigoSala, LocalDate fecha, LocalTime hora, double valorBase) throws CinemaException {
+    public Funcion programarFuncion(int codigoPelicula, String codigoSala, LocalDate fecha, LocalTime hora, double valorBase) throws CinemaException {
         Pelicula pelicula = buscarPelicula(codigoPelicula);
         Sala sala = buscarSala(codigoSala);
 
-        if (!sala.estaDisponible()) {
+        if (sala.getEstado() != EstadoSala.DISPONIBLE) {
             throw new SalaNoDisponibleException("La sala seleccionada se encuentra fuera de servicio.");
+        }
+
+        // Hora de inicio y fin de la nueva función que se desea programar
+        LocalTime inicioNueva = hora;
+        LocalTime finNueva = hora.plusMinutes(pelicula.getDuracion());
+
+        // VALIDACIÓN ROBUSTA DE HORARIO Y SALA
+        for (Funcion f : listaFunciones) {
+            // Solo evaluar funciones activas/programadas en la MISMA sala y el MISMO día
+            if (f.estaProgramada() && f.getFecha().equals(fecha) &&
+                    (f.getSala().getCodigoSala().equalsIgnoreCase(codigoSala) || f.getSala().equals(sala))) {
+
+                LocalTime inicioExistente = f.getHora();
+                LocalTime finExistente = inicioExistente.plusMinutes(f.getPelicula().getDuracion());
+
+                // 1. Coincidencia exacta de hora y minuto
+                boolean mismaHoraExacta = inicioExistente.getHour() == inicioNueva.getHour()
+                        && inicioExistente.getMinute() == inicioNueva.getMinute();
+
+                // 2. Solapamiento de horarios (si la nueva función empieza mientras la otra aún está proyectándose)
+                boolean seCruzanhoras = (inicioNueva.isBefore(finExistente) && finNueva.isAfter(inicioExistente));
+
+                if (mismaHoraExacta || seCruzanhoras) {
+                    throw new CinemaException("No se puede programar la función: La sala '" + sala.getNombre() +
+                            "' ya tiene ocupado el horario " + inicioExistente + " - " + finExistente +
+                            " el día " + fecha + ".");
+                }
+            }
         }
 
         int codigoFuncion = generarCodigoFuncion();
@@ -308,7 +360,6 @@ public class Cinema {
         Entrada entrada = buscarTipoEntrada(codigoEntrada);
         Asiento asiento = funcion.buscarAsiento(codigoAsiento);
 
-        // Ocupa el asiento en la matriz de la funcion
         funcion.ocuparAsiento(codigoAsiento);
 
         int codigoVenta = generarCodigoVenta();

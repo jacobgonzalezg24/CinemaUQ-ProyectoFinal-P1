@@ -8,6 +8,6 @@ public class EntradaGeneral extends Entrada {
 
     @Override
     public double calcularValor(double valorBase) {
-        return valorBase * (1.0 - (getPorcentajeDescuento() / 100.0));
+        return valorBase;
     }
 }

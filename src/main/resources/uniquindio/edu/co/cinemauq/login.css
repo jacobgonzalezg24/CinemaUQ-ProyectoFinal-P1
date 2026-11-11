@@ -1,0 +1,56 @@
+/* Fondo general de la ventana de login con el mismo gradiente radial difuminado */
+.root {
+    -fx-background-color: radial-gradient(radius 80%, #2e1065 0%, #0b0f19 60%, #05070d 100%);
+}
+
+/* Contenedor o tarjeta central del login con efecto translúcido sutil (Glassmorphism) */
+.login-card {
+    -fx-background-color: rgba(19, 24, 38, 0.85);
+    -fx-background-radius: 16px;
+    -fx-border-color: rgba(139, 92, 246, 0.3);
+    -fx-border-radius: 16px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 20, 0, 0, 0);
+}
+
+/* Estilo para los títulos y textos */
+.label-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.label-subtitle {
+    -fx-text-fill: #9ca3af;
+    -fx-font-size: 14px;
+}
+
+/* Campos de texto modernos */
+.text-field {
+    -fx-background-color: #1a2234;
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: #6b7280;
+    -fx-background-radius: 8px;
+    -fx-border-color: #2a344b;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px 14px;
+    -fx-font-size: 14px;
+}
+
+/* Botón principal con animaciones fluidas (escala y brillo) */
+.button-login {
+    -fx-background-color: linear-gradient(to right, #7c3aed, #6d28d9);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+}
+
+/* Efecto hover: El botón brilla un poco y se escala sutilmente */
+.button-login:hover {
+    -fx-background-color: linear-gradient(to right, #8b5cf6, #7c3aed);
+    -fx-effect: dropshadow(three-pass-box, rgba(139, 92, 246, 0.6), 12, 0, 0, 0);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}

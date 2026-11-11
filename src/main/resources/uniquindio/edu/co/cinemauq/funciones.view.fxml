@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox spacing="25" style="-fx-background-color: transparent; -fx-padding: 30;" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uniquindio.edu.co.cinemauq.controller.FuncionController">
+
+    <!-- FORMULARIO DE PROGRAMACIÓN DE FUNCIONES -->
+    <VBox prefWidth="360" spacing="16" style="-fx-background-color: rgba(255, 255, 255, 0.03); -fx-background-radius: 16; -fx-padding: 24; -fx-border-color: rgba(255, 255, 255, 0.08); -fx-border-radius: 16;">
+        <Label style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" text="Programar Función" />
+
+        <VBox spacing="4">
+            <Label style="-fx-text-fill: #94a3b8; -fx-font-size: 11px; -fx-font-weight: bold;" text="Película" />
+            <ComboBox fx:id="cmbPelicula" maxWidth="Infinity" promptText="Seleccionar película..." style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.1);" />
+        </VBox>
+
+        <VBox spacing="4">
+            <Label style="-fx-text-fill: #94a3b8; -fx-font-size: 11px; -fx-font-weight: bold;" text="Sala de Cine" />
+            <ComboBox fx:id="cmbSala" maxWidth="Infinity" promptText="Seleccionar sala..." style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.1);" />
+        </VBox>
+
+        <VBox spacing="4">
+            <Label style="-fx-text-fill: #94a3b8; -fx-font-size: 11px; -fx-font-weight: bold;" text="Fecha de la Función" />
+            <DatePicker fx:id="dpFecha" maxWidth="Infinity" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.1);" />
+        </VBox>
+
+        <HBox spacing="10">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label style="-fx-text-fill: #94a3b8; -fx-font-size: 11px; -fx-font-weight: bold;" text="Hora (00-23)" />
+                <Spinner fx:id="spHora" editable="true" maxWidth="Infinity" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.1);" />
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label style="-fx-text-fill: #94a3b8; -fx-font-size: 11px; -fx-font-weight: bold;" text="Minutos" />
+                <Spinner fx:id="spMinuto" editable="true" maxWidth="Infinity" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.1);" />
+            </VBox>
+        </HBox>
+
+        <VBox spacing="4">
+            <Label style="-fx-text-fill: #94a3b8; -fx-font-size: 11px; -fx-font-weight: bold;" text="Valor Base Entrada ($)" />
+            <TextField fx:id="txtValorBase" promptText="Ej: 15000" style="-fx-background-color: rgba(255,255,255,0.05); -fx-text-fill: white; -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.1); -fx-padding: 8;" />
+        </VBox>
+
+        <VBox spacing="8" style="-fx-padding: 10 0 0 0;">
+            <Button maxWidth="Infinity" onAction="#handleProgramarFuncion" style="-fx-background-color: #7c3aed; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 10; -fx-background-radius: 8;" text="Programar Función" />
+            <Button maxWidth="Infinity" onAction="#handleLimpiar" style="-fx-background-color: rgba(255, 255, 255, 0.05); -fx-text-fill: white; -fx-cursor: hand; -fx-padding: 8; -fx-background-radius: 8;" text="Limpiar Campos" />
+        </VBox>
+    </VBox>
+
+    <!-- TABLA DE FUNCIONES PROGRAMADAS -->
+    <VBox spacing="16" style="-fx-background-color: rgba(255, 255, 255, 0.02); -fx-background-radius: 16; -fx-padding: 24; -fx-border-color: rgba(255, 255, 255, 0.06); -fx-border-radius: 16;" HBox.hgrow="ALWAYS">
+        <Label style="-fx-font-size: 20px; -fx-text-fill: white; -fx-font-weight: bold;" text="Funciones Programadas" />
+
+        <TableView fx:id="tblFunciones" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+            <columns>
+                <TableColumn fx:id="colCodigo" prefWidth="70" text="Código" />
+                <TableColumn fx:id="colPelicula" prefWidth="180" text="Película" />
+                <TableColumn fx:id="colSala" prefWidth="100" text="Sala" />
+                <TableColumn fx:id="colFecha" prefWidth="100" text="Fecha" />
+                <TableColumn fx:id="colHora" prefWidth="80" text="Hora" />
+                <TableColumn fx:id="colValorBase" prefWidth="100" text="Precio Base" />
+            </columns>
+        </TableView>
+    </VBox>
+</HBox>

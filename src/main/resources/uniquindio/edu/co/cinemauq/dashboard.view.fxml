@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="mainContainer" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="uniquindio.edu.co.cinemauq.controller.DashboardController"
+            styleClass="dashboard-root" stylesheets="@dashboard.css">
+
+    <!-- BARRA DE NAVEGACIÓN SUPERIOR -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: rgba(15, 23, 42, 0.8); -fx-padding: 12 24; -fx-border-color: rgba(255, 255, 255, 0.05); -fx-border-width: 0 0 1 0;">
+
+            <!-- SECCIÓN IZQUIERDA: BOTONES DE NAVEGACIÓN -->
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <Button fx:id="btnHome" mnemonicParsing="false" onAction="#onIrHome" styleClass="nav-button-home" text="🏠" />
+                <Button fx:id="btnPeliculas" mnemonicParsing="false" onAction="#onIrPeliculas" styleClass="nav-button" text="PELÍCULAS" />
+                <Button fx:id="btnSalas" mnemonicParsing="false" onAction="#onIrSalas" styleClass="nav-button" text="SALAS" />
+                <Button fx:id="btnFunciones" mnemonicParsing="false" onAction="#onIrFunciones" styleClass="nav-button" text="FUNCIONES" />
+                <Button fx:id="btnTaquilla" mnemonicParsing="false" onAction="#onIrTaquilla" styleClass="nav-button" text="TAQUILLA" />
+                <Button fx:id="btnReportes" mnemonicParsing="false" onAction="#onIrReportes" styleClass="nav-button" text="REPORTES" />
+            </HBox>
+
+            <!-- ESPACIADOR FLEXIBLE -->
+            <Region HBox.hgrow="ALWAYS" />
+
+            <!-- SECCIÓN DERECHA -->
+            <HBox alignment="CENTER_RIGHT" spacing="20">
+                <Button onAction="#onIrTaquilla" styleClass="action-button" text="RESERVAR ENTRADAS" />
+
+                <VBox alignment="CENTER_RIGHT" spacing="2">
+                    <Label fx:id="lblNombreUsuario" text="Jacob Gonzalez" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13px;" />
+                    <Label fx:id="lblRolUsuario" text="ADMINISTRADOR" style="-fx-text-fill: #94a3b8; -fx-font-size: 10px; -fx-font-weight: bold;" />
+                </VBox>
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- Área central desplegable -->
+    <center>
+        <fx:include source="dashboard-home.view.fxml" />
+    </center>
+
+</BorderPane>

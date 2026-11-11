@@ -1,0 +1,714 @@
+.root {
+    -fx-background-color: radial-gradient(radius 80%, #2e1065 0%, #0b0f19 60%, #05070d 100%);
+}
+
+/* Contenedor o tarjeta central del login con efecto translúcido sutil (Glassmorphism) */
+.login-card {
+    -fx-background-color: rgba(19, 24, 38, 0.85);
+    -fx-background-radius: 16px;
+    -fx-border-color: rgba(139, 92, 246, 0.3);
+    -fx-border-radius: 16px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 20, 0, 0, 0);
+}
+
+/* Asegurar que el BorderPane principal no tenga fondos opacos ocultos */
+.dashboard-root {
+    -fx-background-insets: 0;
+}
+
+.root, .dashboard-root {
+    -fx-font-family: 'Roboto', 'Segoe UI', sans-serif;
+}
+
+/* Transparencia para que el ScrollPane deje ver el halo de fondo */
+.transparent-scroll {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-viewport-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Barra de navegación superior semi-translucida estilo Glassmorphism */
+.nav-bar {
+    -fx-background-color: rgba(15, 23, 42, 0.65);
+    -fx-border-color: rgba(255, 255, 255, 0.08);
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 14px 32px;
+}
+
+.logo-label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+/* Botones estándar de la barra */
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #94a3b8;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-padding: 8 14;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+/* Efecto hover con brillo para botones normales */
+.nav-button:hover {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+    -fx-effect: dropshadow(three-pass-box, rgba(124, 58, 237, 0.5), 10, 0, 0, 0);
+}
+
+/* Pestaña activa seleccionada (resaltada) */
+.nav-button.active {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #7c3aed;
+    -fx-effect: dropshadow(three-pass-box, rgba(124, 58, 237, 0.8), 12, 0, 0, 0);
+}
+
+/* Botón especial Casita */
+.nav-button-home {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8 14;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.nav-button-home:hover {
+    -fx-background-color: #7c3aed;
+    -fx-effect: dropshadow(three-pass-box, rgba(124, 58, 237, 0.9), 15, 0, 0, 0);
+}
+
+.nav-button-home.active {
+    -fx-background-color: #7c3aed;
+    -fx-effect: dropshadow(three-pass-box, rgba(124, 58, 237, 0.9), 15, 0, 0, 0);
+}
+
+
+/* Botón de acción (Reservar Entradas) */
+.action-button {
+    -fx-background-color: #7c3aed;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.action-button:hover {
+    -fx-background-color: #6d28d9;
+    -fx-effect: dropshadow(three-pass-box, rgba(124, 58, 237, 0.9), 14, 0, 0, 0);
+}
+
+/* Tarjeta de la película en el carrusel */
+.carousel-card {
+    -fx-background-color: linear-gradient(to bottom right, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.85));
+    -fx-background-radius: 16px;
+    -fx-border-color: rgba(255, 255, 255, 0.12);
+    -fx-border-radius: 16px;
+    -fx-border-width: 1px;
+    -fx-padding: 16px;
+}
+
+.carousel-card:hover {
+    -fx-border-color: rgba(139, 92, 246, 0.6);
+    -fx-effect: dropshadow(three-pass-box, rgba(139, 92, 246, 0.35), 18, 0, 0, 0);
+}
+
+/* Esquinas redondeadas para imágenes en contenedores genéricos */
+.pelicula-imagen {
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+}
+
+/* Simulación del póster gigante en el carrusel */
+.hero-poster-box {
+    -fx-background-color: linear-gradient(to bottom, rgba(51, 65, 85, 0.5), rgba(15, 23, 42, 0.9));
+    -fx-background-radius: 12px;
+    -fx-border-color: rgba(255, 255, 255, 0.08);
+    -fx-border-radius: 12px;
+    -fx-min-height: 220px;
+    -fx-min-width: 220px;
+}
+
+/* Barra de filtro / buscador rápido de funciones estilizada y con profundidad */
+.search-filter-card {
+    -fx-background-color: linear-gradient(to right, rgba(30, 41, 59, 0.75), rgba(15, 23, 42, 0.85));
+    -fx-background-radius: 16px;
+    -fx-border-color: rgba(139, 92, 246, 0.35);
+    -fx-border-radius: 16px;
+    -fx-border-width: 1px;
+    -fx-padding: 20px 28px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 16, 0, 0, 6);
+}
+
+/* Efecto interactivo al pasar el cursor sobre cada columna de filtro */
+.filter-item {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10px;
+    -fx-padding: 8px 12px;
+    -fx-cursor: hand;
+}
+
+.filter-item:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-border-color: rgba(139, 92, 246, 0.3);
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+}
+
+/* Títulos de sección */
+.section-title {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-fill: white;
+    -fx-text-fill: white;
+}
+
+/* ScrollPane Horizontal Suave para la Cartelera */
+.horizontal-scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.horizontal-scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Estilo moderno y translúcido para la barra de desplazamiento horizontal */
+.horizontal-scroll-pane .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-padding: 4px;
+}
+
+.horizontal-scroll-pane .scroll-bar:horizontal .track {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+}
+
+.horizontal-scroll-pane .scroll-bar:horizontal .thumb {
+    -fx-background-color: rgba(139, 92, 246, 0.4);
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+}
+
+.horizontal-scroll-pane .scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: rgba(139, 92, 246, 0.7);
+}
+
+.horizontal-scroll-pane .scroll-bar .increment-button,
+.horizontal-scroll-pane .scroll-bar .decrement-button {
+    -fx-visibility: hidden;
+    -fx-padding: 0;
+}
+
+/* Botón de Inicio (Casita) estilo Neón Brillante exclusivo para el icono */
+.home-button {
+    -fx-background-color: rgba(139, 92, 246, 0.3);
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+    -fx-padding: 8px 12px;
+    -fx-background-radius: 10px;
+    -fx-border-color: rgba(167, 139, 250, 0.9);
+    -fx-border-radius: 10px;
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(139, 92, 246, 0.7), 16, 0, 0, 0);
+}
+
+.home-button:hover {
+    -fx-background-color: rgba(139, 92, 246, 0.5);
+    -fx-effect: dropshadow(three-pass-box, rgba(139, 92, 246, 1.0), 22, 0, 0, 0);
+}
+
+/* ==========================================
+   ESTILOS OSCUROS PROFESIONALES PARA TABLEVIEW
+   ========================================== */
+
+.dark-table {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.dark-table .column-header-background {
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+    -fx-background-radius: 8px 8px 0 0;
+    -fx-border-color: rgba(255, 255, 255, 0.08);
+    -fx-border-width: 0 0 1px 0;
+}
+
+.dark-table .column-header, .dark-table .filler {
+    -fx-background-color: transparent;
+}
+
+.dark-table .column-header .label {
+    -fx-text-fill: #94a3b8 !important;
+    -fx-font-weight: bold;
+}
+
+/* FORZAR QUE EL TEXTO DE LAS CELDAS SEA BLANCO Y VISIBLE */
+.dark-table .table-cell {
+    -fx-text-fill: #ffffff !important;
+    -fx-border-color: transparent;
+    -fx-padding: 10px;
+}
+
+/* Fila base de la tabla */
+.dark-table .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Filas impares y pares */
+.dark-table .table-row-cell:filled:odd {
+    -fx-background-color: rgba(255, 255, 255, 0.015);
+}
+
+.dark-table .table-row-cell:filled:even {
+    -fx-background-color: transparent;
+}
+
+/* Fila seleccionada */
+.dark-table .table-row-cell:selected {
+    -fx-background-color: rgba(124, 58, 237, 0.35);
+    -fx-text-fill: #ffffff !important;
+}
+
+/* Control del foco en la tabla */
+.dark-table:focused {
+    -fx-background-color: transparent;
+}
+
+/* Forzar color de texto blanco absoluto en todas las celdas y su contenido interno de la tabla */
+.dark-table .table-cell,
+.dark-table .table-cell > .text,
+.dark-table .virtual-flow .sheet .table-row-cell .table-cell {
+    -fx-text-fill: #ffffff !important;
+    -fx-fill: #ffffff !important;
+}
+
+/* Asegurar contraste correcto al seleccionar una fila */
+.dark-table .table-row-cell:selected .table-cell,
+.dark-table .table-row-cell:selected .table-cell > .text {
+    -fx-text-fill: #ffffff !important;
+    -fx-fill: #ffffff !important;
+}
+
+/* ==========================================
+   ESTILOS MODERNOS PARA COMBOBOX (OSCURO)
+   ========================================== */
+
+/* Fondo general y bordes del ComboBox */
+.combo-box {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-background-radius: 8px;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-radius: 8px;
+    -fx-padding: 2px;
+}
+
+.combo-box:hover {
+    -fx-border-color: rgba(139, 92, 246, 0.5);
+}
+
+/* Color del texto seleccionado dentro del ComboBox */
+.combo-box .list-cell {
+    -fx-text-fill: #ffffff !important;
+    -fx-background-color: transparent;
+}
+
+/* Color de la flecha desplegable */
+.combo-box .arrow {
+    -fx-background-color: #a78bfa;
+}
+
+/* Fondo y estilos de la lista desplegable del ComboBox */
+.combo-box-popup .list-view {
+    -fx-background-color: #131826;
+    -fx-background-radius: 8px;
+    -fx-border-color: rgba(139, 92, 246, 0.3);
+    -fx-border-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 15, 0, 0, 5);
+}
+
+/* Elementos individuales dentro de la lista desplegable */
+.combo-box-popup .list-view .list-cell {
+    -fx-text-fill: #cbd5e1 !important;
+    -fx-padding: 10px 14px;
+}
+
+/* Efecto hover al pasar el cursor sobre las opciones de la lista */
+.combo-box-popup .list-view .list-cell:filled:hover {
+    -fx-background-color: rgba(124, 58, 237, 0.35);
+    -fx-text-fill: #ffffff !important;
+}
+
+/* Elemento seleccionado dentro de la lista desplegable */
+.combo-box-popup .list-view .list-cell:filled:selected {
+    -fx-background-color: rgba(124, 58, 237, 0.6);
+    -fx-text-fill: #ffffff !important;
+    -fx-font-weight: bold;
+}
+
+/* Estilo para redondear las esquinas de las imágenes o tarjetas de la cartelera */
+.pelicula-imagen {
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+}
+
+/* Estilos Globales del Tema Oscuro */
+.view-container {
+    -fx-background-color: #0b0914;
+}
+
+.page-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+/* Tarjeta del Formulario */
+.card-panel {
+    -fx-background-color: #120e24;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-border-color: #1f1a3a;
+    -fx-border-width: 1px;
+    -fx-padding: 20px;
+}
+
+.card-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.input-label {
+    -fx-text-fill: #9ca3af;
+    -fx-font-size: 12px;
+}
+
+/* Componentes de Entrada */
+.dark-input, .dark-combo, .dark-spinner {
+    -fx-background-color: #1a1532;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #2a234e;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+.dark-input:focused, .dark-combo:focused {
+    -fx-border-color: #7c3aed;
+}
+
+/* Spinner específico */
+.dark-spinner .text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+/* Estilos de Tabla Oscura */
+.dark-table {
+    -fx-background-color: #120e24;
+    -fx-background-radius: 8px;
+    -fx-border-color: #1f1a3a;
+    -fx-border-radius: 8px;
+}
+
+.dark-table .column-header-background {
+    -fx-background-color: #1a1532;
+}
+
+.dark-table .column-header {
+    -fx-background-color: transparent;
+}
+
+.dark-table .column-header .label {
+    -fx-text-fill: #9ca3af;
+    -fx-font-weight: bold;
+}
+
+.dark-table .table-row-cell {
+    -fx-background-color: #120e24;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: transparent transparent #1a1532 transparent;
+}
+
+.dark-table .table-row-cell:filled:selected {
+    -fx-background-color: #2d1b54;
+}
+
+/* Botones */
+.btn-purple {
+    -fx-background-color: #7c3aed;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+    -fx-padding: 8px 15px;
+}
+
+.btn-purple:hover {
+    -fx-background-color: #6d28d9;
+}
+
+.btn-dark-danger {
+    -fx-background-color: #451a1d;
+    -fx-text-fill: #f87171;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.btn-dark-secondary {
+    -fx-background-color: #1a1532;
+    -fx-text-fill: #9ca3af;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+/* =========================================================
+   ESTILOS PARA TABLAS EN TEMA OSCURO (UNIFICADO)
+   ========================================================= */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(255, 255, 255, 0.08);
+    -fx-border-radius: 8;
+}
+
+/* Encabezados de la Tabla */
+.table-view .column-header-background {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-border-color: rgba(255, 255, 255, 0.08);
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-alignment: CENTER-LEFT !important;
+    -fx-padding: 8px 10px !important;
+    -fx-text-fill: #94a3b8 !important;
+    -fx-font-weight: bold;
+}
+
+/* Filas de la tabla (mantienen el fondo y la selección) */
+.table-view .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(255, 255, 255, 0.03);
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: rgba(255, 255, 255, 0.015);
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: rgba(124, 58, 237, 0.3);
+}
+
+/* Celdas individuales (alineación izquierda y padding unificado) */
+.table-view .table-cell {
+    -fx-alignment: CENTER-LEFT !important;
+    -fx-padding: 10px 14px !important;
+    -fx-text-fill: #e2e8f0 !important;
+}
+
+/* Quitar líneas de separación vertical de las columnas */
+.table-view {
+    -fx-table-cell-border-color: transparent !important;
+}
+
+.table-view .table-cell {
+    -fx-border-color: transparent !important;
+    -fx-border-width: 0 !important;
+}
+
+.table-view .column-header {
+    -fx-border-color: transparent !important;
+    -fx-border-width: 0 !important;
+}
+
+
+/* =========================================================
+   ESTILOS PARA INPUTS (DatePicker y Spinners)
+   ========================================================= */
+
+/* DatePicker estilo oscuro */
+.date-picker {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-radius: 8;
+}
+
+.date-picker > .text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-padding: 8;
+}
+
+.date-picker > .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.date-picker > .arrow-button > .arrow {
+    -fx-background-color: #94a3b8;
+}
+
+/* Spinners estilo oscuro */
+.spinner {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-radius: 8;
+}
+
+.spinner > .text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-padding: 8;
+}
+
+.spinner > .increment-arrow-button,
+.spinner > .decrement-arrow-button {
+    -fx-background-color: transparent;
+}
+
+.spinner > .increment-arrow-button > .arrow,
+.spinner > .decrement-arrow-button > .arrow {
+    -fx-background-color: #94a3b8;
+}
+
+/* =========================================================
+   CALENDARIO OSCURO SIN REJILLA BLANCA
+   ========================================================= */
+
+/* Ventana y contenedores del popup */
+.date-picker-popup,
+.date-picker-popup > *,
+.date-picker-popup > .date-picker-popup-content {
+    -fx-background-color: #1a1625 !important;
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(255, 255, 255, 0.12);
+    -fx-border-radius: 12;
+}
+
+/* Quitar espaciado y bordes de la cuadrícula de días */
+.date-picker-popup > .calendar-grid,
+.date-picker-popup .calendar-grid {
+    -fx-background-color: transparent !important;
+    -fx-hgap: 0px !important;
+    -fx-vgap: 0px !important;
+    -fx-padding: 4px !important;
+}
+
+/* Panel superior (Mes y Año) */
+.date-picker-popup .month-year-pane {
+    -fx-background-color: transparent !important;
+    -fx-padding: 8 10;
+}
+
+.date-picker-popup .month-year-pane .label {
+    -fx-text-fill: #ffffff !important;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+/* Botones de navegación (Flechas) */
+.date-picker-popup .month-year-pane .spinner .button,
+.date-picker-popup .month-year-pane .left-button,
+.date-picker-popup .month-year-pane .right-button {
+    -fx-background-color: transparent !important;
+    -fx-border-color: transparent !important;
+    -fx-cursor: hand;
+}
+
+.date-picker-popup .month-year-pane .left-arrow,
+.date-picker-popup .month-year-pane .right-arrow {
+    -fx-background-color: #ffffff !important;
+}
+
+/* Días de la semana (Dom, Lun, Mar...) */
+.date-picker-popup .day-name-cell {
+    -fx-background-color: transparent !important;
+    -fx-border-color: transparent !important;
+    -fx-text-fill: #94a3b8 !important;
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+    -fx-padding: 6 0;
+}
+
+/* Celdas individuales de los días */
+.date-picker-popup .day-cell {
+    -fx-background-color: transparent !important;
+    -fx-border-color: transparent !important; /* Elimina el borde blanco de cada casilla */
+    -fx-border-width: 0px !important;
+    -fx-text-fill: #e2e8f0 !important;
+    -fx-background-radius: 6;
+    -fx-alignment: CENTER;
+}
+
+/* Estado al pasar el cursor (Hover) */
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: rgba(124, 58, 237, 0.35) !important;
+    -fx-text-fill: #ffffff !important;
+}
+
+/* Día seleccionado */
+.date-picker-popup .day-cell:selected {
+    -fx-background-color: #7c3aed !important;
+    -fx-text-fill: #ffffff !important;
+    -fx-font-weight: bold;
+}
+
+/* Día actual (Hoy) */
+.date-picker-popup .today {
+    -fx-border-color: #7c3aed !important;
+    -fx-border-width: 1px !important;
+    -fx-border-radius: 6;
+}
+
+/* Días fuera del mes actual */
+.date-picker-popup .day-cell:previous-month,
+.date-picker-popup .day-cell:next-month {
+    -fx-background-color: transparent !important;
+    -fx-border-color: transparent !important;
+    -fx-text-fill: #475569 !important;
+}
+
+.hero-card {
+    -fx-background-color: rgba(255, 255, 255, 0.03);
+    -fx-background-radius: 24px;
+    -fx-border-radius: 24px;
+    -fx-border-color: rgba(255, 255, 255, 0.18);
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 20, 0, 0, 8);
+}
+
+/* Capa de fundido suave que disuelve la imagen hacia la izquierda */
+.hero-gradient-overlay {
+    -fx-background-radius: 24px;
+    -fx-background-color:
+            linear-gradient(to right,
+            rgba(11, 14, 23, 1.0) 0%,
+            rgba(11, 14, 23, 0.9) 35%,
+            rgba(11, 14, 23, 0.4) 65%,
+            transparent 100%),
+            linear-gradient(to top,
+            rgba(11, 14, 23, 0.8) 0%,
+            transparent 30%);
+}
+
+
+

@@ -6,27 +6,45 @@ import uniquindio.edu.co.cinemauq.model.exceptions.AsientoOcupadoException;
 
 public class Asiento {
     private String codigoAsiento;
-    private int fila;
+    private char fila;
     private int columna;
     private EstadoAsiento estado;
 
-    public Asiento(int fila, int columna) {
+    public Asiento(char fila, int columna) {
         this.fila = fila;
         this.columna = columna;
         this.codigoAsiento = generarCodigo(fila, columna);
         this.estado = EstadoAsiento.DISPONIBLE;
     }
 
+    private String generarCodigo(char fila, int columna) {
+        return String.valueOf(fila) + columna;
+    }
+
     public String getCodigoAsiento() {
         return codigoAsiento;
     }
 
-    public int getFila() {
+    public void setCodigoAsiento(String codigoAsiento) {
+        this.codigoAsiento = codigoAsiento;
+    }
+
+    public char getFila() {
         return fila;
+    }
+
+    public void setFila(char fila) {
+        this.fila = fila;
+        this.codigoAsiento = generarCodigo(this.fila, this.columna);
     }
 
     public int getColumna() {
         return columna;
+    }
+
+    public void setColumna(int columna) {
+        this.columna = columna;
+        this.codigoAsiento = generarCodigo(this.fila, this.columna);
     }
 
     public EstadoAsiento getEstado() {
@@ -35,11 +53,6 @@ public class Asiento {
 
     public void setEstado(EstadoAsiento estado) {
         this.estado = estado;
-    }
-
-    private String generarCodigo(int fila, int columna) {
-        char letraFila = (char) ('A' + (fila - 1));
-        return letraFila + String.valueOf(columna);
     }
 
     public void ocupar() throws AsientoOcupadoException {

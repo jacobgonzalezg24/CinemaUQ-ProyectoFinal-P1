@@ -10,14 +10,16 @@ public class Pelicula {
     private int duracion;
     private Clasificacion clasificacion;
     private EstadoPelicula estado;
+    private String imagen;
 
-    public Pelicula(int codigoPelicula, String nombre, String genero, int duracion, Clasificacion clasificacion, EstadoPelicula estado) {
+    public Pelicula(int codigoPelicula, String nombre, String genero, int duracion, Clasificacion clasificacion, EstadoPelicula estado, String imagen) {
         this.codigoPelicula = codigoPelicula;
         this.nombre = nombre;
         this.genero = genero;
         this.duracion = duracion;
         this.clasificacion = clasificacion;
         this.estado = estado;
+        this.imagen = imagen;
     }
 
     public int getCodigoPelicula() {
@@ -68,12 +70,21 @@ public class Pelicula {
         this.estado = estado;
     }
 
-    public void modificar(String nombre, String genero, int duracion, Clasificacion clasificacion, EstadoPelicula estado) {
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public void modificar(String nombre, String genero, int duracion, Clasificacion clasificacion, EstadoPelicula estado, String imagen) {
         this.nombre = nombre;
         this.genero = genero;
         this.duracion = duracion;
         this.clasificacion = clasificacion;
         this.estado = estado;
+        this.imagen = imagen;
     }
 
     public void deshabilitar() {

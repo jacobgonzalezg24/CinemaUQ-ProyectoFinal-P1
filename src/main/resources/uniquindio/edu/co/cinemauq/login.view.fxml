@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane stylesheets="@login.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uniquindio.edu.co.cinemauq.controller.LoginController">
+    <children>
+        <VBox alignment="CENTER" maxWidth="380.0" maxHeight="420.0" spacing="20.0" styleClass="login-card">
+            <padding>
+                <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
+            </padding>
+            <children>
+                <Label styleClass="label-title" text="CINEMA UQ" />
+                <Label styleClass="label-subtitle" text="Ingrese su código de empleado" />
+
+                <VBox spacing="8.0" alignment="CENTER_LEFT" style="-fx-padding: 10 0 10 0;">
+                    <children>
+                        <Label text="Código de Empleado" style="-fx-text-fill: #d1d5db; -fx-font-size: 12px;" />
+                        <TextField fx:id="txtCodigoEmpleado" promptText="Ej: 101" />
+                    </children>
+                </VBox>
+
+                <Button fx:id="btnIngresar" mnemonicParsing="false" onAction="#onIngresarClick" prefHeight="42.0" prefWidth="316.0" styleClass="button-login" text="Ingresar al Sistema" />
+            </children>
+        </VBox>
+    </children>
+</StackPane>

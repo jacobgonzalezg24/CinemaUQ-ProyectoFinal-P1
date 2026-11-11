@@ -1,6 +1,5 @@
 package uniquindio.edu.co.cinemauq.model;
 
-import uniquindio.edu.co.cinemauq.model.enums.EstadoAsiento;
 import uniquindio.edu.co.cinemauq.model.enums.EstadoFuncion;
 import uniquindio.edu.co.cinemauq.model.exceptions.AsientoNoEncontradoException;
 import uniquindio.edu.co.cinemauq.model.exceptions.AsientoOcupadoException;
@@ -31,69 +30,14 @@ public class Funcion {
         generarMatrizAsientos();
     }
 
-    public int getCodigoFuncion() {
-        return codigoFuncion;
-    }
-
-    public void setCodigoFuncion(int codigoFuncion) {
-        this.codigoFuncion = codigoFuncion;
-    }
-
-    public Pelicula getPelicula() {
-        return pelicula;
-    }
-
-    public void setPelicula(Pelicula pelicula) {
-        this.pelicula = pelicula;
-    }
-
-    public Sala getSala() {
-        return sala;
-    }
-
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
-    public LocalTime getHora() {
-        return hora;
-    }
-
-    public void setHora(LocalTime hora) {
-        this.hora = hora;
-    }
-
-    public double getValorBase() {
-        return valorBase;
-    }
-
-    public void setValorBase(double valorBase) {
-        this.valorBase = valorBase;
-    }
-
-    public EstadoFuncion getEstado() {
-        return estado;
-    }
-
-    public void setEstado(EstadoFuncion estado) {
-        this.estado = estado;
-    }
-
-    public Asiento[][] getMatrizAsientos() {
-        return matrizAsientos;
-    }
-
     private void generarMatrizAsientos() {
-        int filas = sala.getFilas();
-        int columnas = sala.getColumnas();
+        int filas = sala.getNumeroFilas();
+        int columnas = sala.getNumeroColumnas();
         this.matrizAsientos = new Asiento[filas][columnas];
         for (int i = 0; i < filas; i++) {
+            char letraFila = (char) ('A' + i);
             for (int j = 0; j < columnas; j++) {
-                this.matrizAsientos[i][j] = new Asiento(i + 1, j + 1);
+                this.matrizAsientos[i][j] = new Asiento(letraFila, j + 1);
             }
         }
     }
@@ -113,7 +57,7 @@ public class Funcion {
     }
 
     public int contarTotales() {
-        return sala.getCapacidad();
+        return sala.getCapacidadTotal();
     }
 
     public int contarDisponibles() {
@@ -165,6 +109,75 @@ public class Funcion {
 
     public boolean estaProgramada() {
         return this.estado == EstadoFuncion.PROGRAMADA;
+    }
+
+    // Getters y Setters
+    public int getCodigoFuncion() {
+        return codigoFuncion;
+    }
+
+    public void setCodigoFuncion(int codigoFuncion) {
+        this.codigoFuncion = codigoFuncion;
+    }
+
+    public Pelicula getPelicula() {
+        return pelicula;
+    }
+
+    public void setPelicula(Pelicula pelicula) {
+        this.pelicula = pelicula;
+    }
+
+    public Sala getSala() {
+        return sala;
+    }
+
+    public void setSala(Sala sala) {
+        this.sala = sala;
+        generarMatrizAsientos();
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public LocalTime getHora() {
+        return hora;
+    }
+
+    public void setHora(LocalTime hora) {
+        this.hora = hora;
+    }
+
+    public double getValorBase() {
+        return valorBase;
+    }
+
+    public void setValorBase(double valorBase) {
+        this.valorBase = valorBase;
+    }
+
+    public EstadoFuncion getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoFuncion estado) {
+        this.estado = estado;
+    }
+
+    public Asiento[][] getMatrizAsientos() {
+        return matrizAsientos;
+    }
+
+    @Override
+    public String toString() {
+        return (pelicula != null ? pelicula.getNombre() : "Película") +
+                " - " + (sala != null ? sala.getNombre() : "Sala") +
+                " (" + (hora != null ? hora.toString() : "") + ")";
     }
 }
 
