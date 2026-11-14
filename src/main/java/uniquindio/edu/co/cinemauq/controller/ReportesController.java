@@ -9,9 +9,11 @@ import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import uniquindio.edu.co.cinemauq.model.Cinema;
 import uniquindio.edu.co.cinemauq.model.Empleado;
-import uniquindio.edu.co.cinemauq.model.Funcion;
 import uniquindio.edu.co.cinemauq.model.Pelicula;
 import uniquindio.edu.co.cinemauq.model.Venta;
+import uniquindio.edu.co.cinemauq.model.exceptions.VentaNoEncontradaException;
+
+import java.util.Optional;
 
 public class ReportesController {
 
@@ -29,6 +31,9 @@ public class ReportesController {
 
     @FXML
     private TextField txtBusquedaGlobal;
+
+    @FXML
+    private Button btnCancelarVenta;
 
     @FXML
     private TableView<Venta> tblVentas;
@@ -166,12 +171,7 @@ public class ReportesController {
     private void cargarDatos() {
         if (cinema == null) return;
 
-        // Métricas Globales
-        lblTotalEntradas.setText(String.valueOf(cinema.totalEntradasVendidas()));
-        lblTotalIngresos.setText(String.format("$ %.2f", cinema.totalIngresos()));
-
-        Pelicula peliTop = cinema.peliculaMasVendida();
-        lblPeliculaMasVendida.setText(peliTop != null ? peliTop.getNombre() : "Sin ventas");
+        actualizarMetricas();
 
         // Cargar Lista de Empleados en el ComboBox
         cmbEmpleadoFiltro.setItems(FXCollections.observableArrayList(cinema.consultarEmpleados()));
@@ -181,9 +181,24 @@ public class ReportesController {
         aplicarFiltros();
     }
 
+    private void actualizarMetricas() {
+        if (cinema == null) return;
+
+        int totalEntradas = cinema.totalEntradasVendidas();
+        lblTotalEntradas.setText(String.valueOf(totalEntradas));
+        lblTotalIngresos.setText(String.format("$ %.2f", cinema.totalIngresos()));
+
+        if (totalEntradas == 0) {
+            lblPeliculaMasVendida.setText("Sin ventas");
+        } else {
+            Pelicula peliTop = cinema.peliculaMasVendida();
+            lblPeliculaMasVendida.setText(peliTop != null ? peliTop.getNombre() : "Sin ventas");
+        }
+    }
+
     /**
-     * Filtra dinámicamente por texto ingresado (Empleado, Cliente, Película, Sala, Función, Asiento)
-     * y por la selección en el ComboBox de Empleados.
+     * Filtra dinámicamente mostrando solo ventas ACTIVAS y aplicando
+     * el texto ingresado y la selección del ComboBox de Empleados.
      */
     private void aplicarFiltros() {
         String busqueda = (txtBusquedaGlobal != null && txtBusquedaGlobal.getText() != null)
@@ -192,7 +207,10 @@ public class ReportesController {
         Empleado empleadoSeleccionado = cmbEmpleadoFiltro.getValue();
 
         listaFiltradaVentas.setPredicate(venta -> {
-            if (venta == null) return false;
+            // Solo mostrar ventas activas en el reporte
+            if (venta == null || !venta.estaActiva()) {
+                return false;
+            }
 
             // Filtro 1: ComboBox de Empleados (Comparación primitiva int a int)
             if (empleadoSeleccionado != null) {
@@ -234,7 +252,6 @@ public class ReportesController {
             String codAsiento = venta.getAsiento() != null
                     ? venta.getAsiento().getCodigoAsiento().toLowerCase() : "";
 
-            // Retorna verdadero si alguna propiedad coincide con la búsqueda
             return codVenta.contains(busqueda)
                     || nombreEmpleado.contains(busqueda)
                     || codEmpleado.contains(busqueda)
@@ -248,11 +265,61 @@ public class ReportesController {
     }
 
     @FXML
+    private void handleCancelarVenta() {
+        Venta ventaSeleccionada = tblVentas.getSelectionModel().getSelectedItem();
+
+        if (ventaSeleccionada == null) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Selección requerida",
+                    "Por favor, selecciona una venta de la tabla para cancelarla.");
+            return;
+        }
+
+        String infoPelicula = (ventaSeleccionada.getFuncion() != null && ventaSeleccionada.getFuncion().getPelicula() != null)
+                ? ventaSeleccionada.getFuncion().getPelicula().getNombre() : "N/A";
+        String infoAsiento = (ventaSeleccionada.getAsiento() != null)
+                ? ventaSeleccionada.getAsiento().getCodigoAsiento() : "N/A";
+        String infoCliente = (ventaSeleccionada.getCliente() != null)
+                ? ventaSeleccionada.getCliente().getNombre() : "N/A";
+
+        Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacion.setTitle("Confirmar cancelación");
+        confirmacion.setHeaderText("¿Cancelar la venta #" + ventaSeleccionada.getCodigoVenta() + "?");
+        confirmacion.setContentText(
+                "Cliente: " + infoCliente + "\n" +
+                        "Película: " + infoPelicula + " | Asiento: " + infoAsiento + "\n" +
+                        "Valor a descontar: " + String.format("$ %.2f", ventaSeleccionada.getValorPagado()) + "\n\n" +
+                        "Esta acción liberará el asiento en la sala y descontará el monto de los ingresos."
+        );
+
+        Optional<ButtonType> resultado = confirmacion.showAndWait();
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+            try {
+                cinema.cancelarVenta(ventaSeleccionada.getCodigoVenta());
+                tblVentas.getSelectionModel().clearSelection();
+                aplicarFiltros();
+                actualizarMetricas();
+                mostrarAlerta(Alert.AlertType.INFORMATION, "Venta cancelada",
+                        "La venta #" + ventaSeleccionada.getCodigoVenta() + " ha sido cancelada y el asiento " + infoAsiento + " vuelve a estar disponible.");
+            } catch (VentaNoEncontradaException e) {
+                mostrarAlerta(Alert.AlertType.ERROR, "Error al cancelar", e.getMessage());
+            }
+        }
+    }
+
+    @FXML
     private void handleMostrarTodas() {
         cmbEmpleadoFiltro.setValue(null);
         if (txtBusquedaGlobal != null) {
             txtBusquedaGlobal.clear();
         }
         aplicarFiltros();
+    }
+
+    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 }
