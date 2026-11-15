@@ -108,6 +108,11 @@ public class PeliculasController {
                 return;
             }
 
+            if (duracion <= 0) {
+                mostrarAlerta("Duración Inválida", "La duración de la película debe ser mayor a 0 minutos.", Alert.AlertType.WARNING);
+                return;
+            }
+
             if (cinema.verificarPelicula(codigo)) {
                 // Actualizar existente
                 cinema.modificarPelicula(codigo, nombre, genero, duracion, clasificacion, estado, imagen);

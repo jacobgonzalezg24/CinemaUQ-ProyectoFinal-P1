@@ -27,6 +27,17 @@ public class LoginController {
     private Cinema cinema = new Cinema();
 
     @FXML
+    public void initialize() {
+        // Permite iniciar sesión presionando Enter en la ventana o dentro del campo de texto
+        if (btnIngresar != null) {
+            btnIngresar.setDefaultButton(true);
+        }
+        if (txtCodigoEmpleado != null) {
+            txtCodigoEmpleado.setOnAction(this::onIngresarClick);
+        }
+    }
+
+    @FXML
     void onIngresarClick(ActionEvent event) {
         try {
             String textoCodigo = txtCodigoEmpleado.getText().trim();
@@ -55,7 +66,7 @@ public class LoginController {
 
                 // 4. Pasar los datos del empleado Y la instancia de cinema al controlador del Dashboard
                 DashboardController controller = loader.getController();
-                controller.initData(empleado, cinema); // <--- ¡Aquí está la corrección clave!
+                controller.initData(empleado, cinema);
 
                 // 5. Obtener el Stage (ventana) actual desde el botón de login
                 Stage stage = (Stage) btnIngresar.getScene().getWindow();
