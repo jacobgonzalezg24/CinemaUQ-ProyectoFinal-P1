@@ -58,23 +58,7 @@ class SalaTest {
         assertEquals(1, sala.getAsientos().get(4).getColumna());
     }
 
-    // 5. PENDIENTE: la clase Sala no tiene un método buscarAsiento (esa búsqueda está en Funcion y en Asiento.buscarEnMatriz).
-    //  Por eso no se puede probar aquí sin inventar código; queda desactivada.
-
-    @Test @Disabled("Sala no tiene buscarAsiento")
-    void buscarAsientoExistenteRetornaElAsiento() {}
-
-    // 6. PENDIENTE: igual que la anterior, Sala no tiene buscarAsiento.
-
-    @Test @Disabled("Sala no tiene buscarAsiento")
-    void buscarAsientoInexistenteLanzaAsientoNoEncontradoException() {}
-
-    // 7. PENDIENTE: igual que la anterior, Sala no tiene buscarAsiento.
-
-    @Test @Disabled("Sala no tiene buscarAsiento")
-    void buscarAsientoConFormatoInvalidoLanzaAsientoNoEncontradoException() {}
-
-    // 8. Verifica que la sala pueda quedar FUERA_DE_SERVICIO.
+    // 5. Verifica que la sala pueda quedar FUERA_DE_SERVICIO.
     // Sala no tiene un método "deshabilitar": se hace con setEstado, que es lo mismo que hace Cinema.deshabilitarSala.
 
     @Test
@@ -86,7 +70,7 @@ class SalaTest {
         assertEquals(EstadoSala.FUERA_DE_SERVICIO, sala.getEstado());   // después
     }
 
-    // 9. Verifica que una sala fuera de servicio ya no esté disponible.
+    // 6. Verifica que una sala fuera de servicio ya no esté disponible.
     // Sala no tiene estaDisponible(): se compara su estado contra DISPONIBLE.
 
     @Test
