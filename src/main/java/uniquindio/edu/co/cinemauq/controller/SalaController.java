@@ -62,8 +62,8 @@ public class SalaController {
     }
 
     private void configurarSpinners() {
-        SpinnerValueFactory<Integer> valueFactoryFilas = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 26, 10);
-        SpinnerValueFactory<Integer> valueFactoryColumnas = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 30, 10);
+        SpinnerValueFactory<Integer> valueFactoryFilas = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, 10);
+        SpinnerValueFactory<Integer> valueFactoryColumnas = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, 10);
 
         spnFilas.setValueFactory(valueFactoryFilas);
         spnColumnas.setValueFactory(valueFactoryColumnas);

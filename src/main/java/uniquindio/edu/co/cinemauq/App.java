@@ -18,10 +18,10 @@ public class App extends Application {
         Font myFont = Font.loadFont(getClass().getResourceAsStream("/fonts/Roboto-Regular.ttf"), 14);
 
         if (myFont != null) {
-            System.out.println("✅ ¡Fuente cargada correctamente!");
-            System.out.println("📌 Nombre exacto para el CSS (Family): " + myFont.getFamily());
+            System.out.println("¡Fuente cargada correctamente!");
+            System.out.println("Nombre exacto para el CSS (Family): " + myFont.getFamily());
         } else {
-            System.out.println("❌ Error crítico: La ruta del archivo de fuente no es accesible.");
+            System.out.println("Error crítico: La ruta del archivo de fuente no es accesible.");
         }
 
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/uniquindio/edu/co/cinemauq/login.view.fxml"));
