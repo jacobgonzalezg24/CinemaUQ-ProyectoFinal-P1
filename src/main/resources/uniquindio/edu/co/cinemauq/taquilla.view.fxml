@@ -7,7 +7,7 @@
 <HBox spacing="25" style="-fx-background-color: transparent; -fx-padding: 30;" stylesheets="@dashboard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uniquindio.edu.co.cinemauq.controller.TaquillaController">
 
     <!-- LADO IZQUIERDO: SELECCIÓN DE FUNCIÓN Y MAPA DE ASIENTOS -->
-    <VBox HBox.hgrow="ALWAYS" spacing="20" style="-fx-background-color: rgba(255, 255, 255, 0.02); -fx-background-radius: 16; -fx-padding: 24; -fx-border-color: rgba(255, 255, 255, 0.06); -fx-border-radius: 16;">
+    <VBox HBox.hgrow="ALWAYS" spacing="18" style="-fx-background-color: rgba(255, 255, 255, 0.02); -fx-background-radius: 16; -fx-padding: 24; -fx-border-color: rgba(255, 255, 255, 0.06); -fx-border-radius: 16;">
 
         <!-- Header y Seleccionador de Función -->
         <HBox spacing="15" alignment="CENTER_LEFT">
@@ -20,6 +20,27 @@
                 <Label text="Función / Película / Sala" style="-fx-text-fill: #94a3b8; -fx-font-size: 11px; -fx-font-weight: bold;" />
                 <ComboBox fx:id="cmbFuncion" promptText="Seleccionar función..." maxWidth="Infinity" style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 8;" />
             </VBox>
+        </HBox>
+
+        <!-- INDICADORES DE DISPONIBILIDAD DE LA FUNCIÓN -->
+        <HBox spacing="12">
+            <HBox alignment="CENTER_LEFT" spacing="10" HBox.hgrow="ALWAYS" style="-fx-background-color: rgba(16, 185, 129, 0.08); -fx-border-color: rgba(16, 185, 129, 0.25); -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10 14;">
+                <Region prefWidth="10" prefHeight="10" style="-fx-background-color: #10b981; -fx-background-radius: 5;" />
+                <Label text="Asientos Disponibles:" style="-fx-text-fill: #cbd5e1; -fx-font-size: 12px;" HBox.hgrow="ALWAYS" />
+                <Label fx:id="lblAsientosDisponibles" text="-" style="-fx-text-fill: #10b981; -fx-font-size: 16px; -fx-font-weight: bold;" />
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10" HBox.hgrow="ALWAYS" style="-fx-background-color: rgba(239, 68, 68, 0.08); -fx-border-color: rgba(239, 68, 68, 0.25); -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10 14;">
+                <Region prefWidth="10" prefHeight="10" style="-fx-background-color: #ef4444; -fx-background-radius: 5;" />
+                <Label text="Asientos Ocupados:" style="-fx-text-fill: #cbd5e1; -fx-font-size: 12px;" HBox.hgrow="ALWAYS" />
+                <Label fx:id="lblAsientosOcupados" text="-" style="-fx-text-fill: #ef4444; -fx-font-size: 16px; -fx-font-weight: bold;" />
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10" HBox.hgrow="ALWAYS" style="-fx-background-color: rgba(255, 255, 255, 0.03); -fx-border-color: rgba(255, 255, 255, 0.08); -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10 14;">
+                <Region prefWidth="10" prefHeight="10" style="-fx-background-color: #94a3b8; -fx-background-radius: 5;" />
+                <Label text="Capacidad Total:" style="-fx-text-fill: #cbd5e1; -fx-font-size: 12px;" HBox.hgrow="ALWAYS" />
+                <Label fx:id="lblAsientosTotales" text="-" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" />
+            </HBox>
         </HBox>
 
         <Separator style="-fx-opacity: 0.1;" />
