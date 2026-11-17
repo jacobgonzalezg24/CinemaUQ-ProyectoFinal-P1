@@ -19,6 +19,15 @@ public class TaquillaController {
     private ComboBox<Funcion> cmbFuncion;
 
     @FXML
+    private Label lblAsientosDisponibles;
+
+    @FXML
+    private Label lblAsientosOcupados;
+
+    @FXML
+    private Label lblAsientosTotales;
+
+    @FXML
     private GridPane gridAsientos;
 
     @FXML
@@ -49,12 +58,11 @@ public class TaquillaController {
     @FXML
     public void initialize() {
         cmbFuncion.valueProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
-                funcionSeleccionada = newVal;
-                asientosSeleccionados.clear();
-                actualizarResumen();
-                generarMapaAsientos();
-            }
+            funcionSeleccionada = newVal;
+            asientosSeleccionados.clear();
+            actualizarDisponibilidadFuncion();
+            actualizarResumen();
+            generarMapaAsientos();
         });
 
         if (cmbTipoEntrada != null) {
@@ -78,6 +86,23 @@ public class TaquillaController {
                 cmbTipoEntrada.setItems(FXCollections.observableArrayList(cinema.consultarTiposEntrada()));
             }
         }
+    }
+
+    private void actualizarDisponibilidadFuncion() {
+        if (lblAsientosDisponibles == null || lblAsientosOcupados == null || lblAsientosTotales == null) {
+            return;
+        }
+
+        if (funcionSeleccionada == null) {
+            lblAsientosDisponibles.setText("-");
+            lblAsientosOcupados.setText("-");
+            lblAsientosTotales.setText("-");
+            return;
+        }
+
+        lblAsientosDisponibles.setText(String.valueOf(funcionSeleccionada.contarDisponibles()));
+        lblAsientosOcupados.setText(String.valueOf(funcionSeleccionada.contarOcupados()));
+        lblAsientosTotales.setText(String.valueOf(funcionSeleccionada.contarTotales()));
     }
 
     @FXML
@@ -279,6 +304,7 @@ public class TaquillaController {
             asientosSeleccionados.clear();
             txtCedulaCliente.clear();
             txtNombreCliente.clear();
+            actualizarDisponibilidadFuncion();
             actualizarResumen();
             generarMapaAsientos();
 
